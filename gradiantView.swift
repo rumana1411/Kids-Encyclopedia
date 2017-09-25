@@ -8,14 +8,47 @@
 
 import UIKit
 
+@IBDesignable
+
 class gradiantView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    
+    
+        @IBInspectable var FirstColor: UIColor = UIColor.blue{
+            
+            didSet{
+                updateView()
+            }
+            
+        }
+        
+        
+        @IBInspectable var SecondColor: UIColor = UIColor.red{
+            
+            didSet{
+                updateView()
+            }
+            
+        }
+        
+        
+        override class var layerClass: AnyClass {
+            
+            get{
+                return CAGradientLayer.self
+                
+            }
+            
+            
+        }
+        
+        func updateView(){
+            
+            var newLayer = layer as! CAGradientLayer
+            newLayer.colors = [FirstColor.cgColor,SecondColor.cgColor]
+            
+        }
+        
     }
-    */
 
-}
+
+

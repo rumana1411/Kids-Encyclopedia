@@ -6,30 +6,121 @@
 //  Copyright © 2017 ALFA. All rights reserved.
 //
 
+
 import UIKit
 
-class SplashViewController: UIViewController {
+//All Global Variables
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+var contDataArray = [continentList]()
 
-        // Do any additional setup after loading the view.
-    }
+//var fetchedCountryArray = [Country]()
+var dummy = [Country]()
+var InfoDataArray = [Country]()
+var cntryArray: [String]!
+var totalCntry: Int = 0
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
+var asiaDetail = [Country]()
+var europeDetail = [Country]()
+var myFav = [Int]()
+var northAmericaDetail  = [Country]()
+var southAmericaDetail  = [Country]()
+var othersAmericaDetail  = [Country]()  //Central N Caribbean
+
+var australiaDetail  = [Country]()  //Australia n Oceania
+var africaDetail  = [Country]()
+var othersDetail = [Country]()   //Polar
+var GeneralContDetail = [Country]()
+
+
+var asiaDetailRef = [Int]()
+var  europeDetailRef = [Int]()
+var northAmericaDetailRef = [Int]()
+var southAmericaDetailRef = [Int]()
+var othersAmericaDetailRef = [Int]()
+var australiaDetailRef = [Int]()
+var africaDetailRef = [Int]()
+var othersDetailRef = [Int]()
+
+var cntryIndexRef = Int()
+var flagImgArray = [UIImage]()
+var flagEmojiArray = [String]()
+var myFavRefArray = [Int]()
+
+
+struct langNCurrencyStruct{
     
+    var languages: [String]
+    var currencies: [String]
+}
 
-    /*
-    // MARK: - Navigation
+struct regionInfoStruct{
+    
+    var region: String!
+    var subregion: String!
+    var regName: String!
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+var langNCurrArray: [langNCurrencyStruct] = []
+var regionInfoArray: [regionInfoStruct] = []
 
+//Global Var
+    
+    class SplashViewController: UIViewController {
+        
+        @IBOutlet weak var titleLbl: UILabel!
+       
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            
+            
+            
+            // To make InfoDataArray empty before loading data
+            InfoDataArray.removeAll()
+            asiaDetail.removeAll()
+            europeDetail.removeAll()
+            southAmericaDetail.removeAll()
+            northAmericaDetail.removeAll()
+            australiaDetail.removeAll()
+            africaDetail.removeAll()
+            othersAmericaDetail.removeAll()
+            othersDetail.removeAll()
+            myFav.removeAll()
+            flagImgArray.removeAll()
+            myFavRefArray.removeAll()
+            
+            //Load Data
+            
+            // contDataArray = Data.getContinentData()
+            Data.getContinentData()
+
+            Data.parseJson()
+            totalCntry = InfoDataArray.count
+            print("Liza \(InfoDataArray.count) \(totalCntry)")
+            //splitContinents()
+            
+
+            
+            
+            
+            
+            //Code of splash screen
+            UIView.animate(withDuration: 4) {
+                   self.titleLbl.alpha = 1
+            }
+            
+            perform(#selector(SplashViewController.showNavFunc), with: nil, afterDelay: 6)
+        }
+        
+        func showNavFunc(){
+            print("Ahsan")
+            
+           // performSegue(withIdentifier: "ShowNav", sender: nil)  //For Old menu
+            performSegue(withIdentifier: "showNewNav", sender: nil)  //For New Menu
+        }
+        
+
+              
 }

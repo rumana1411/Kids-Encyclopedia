@@ -7,3 +7,17 @@
 //
 
 import Foundation
+
+class Ques{
+    
+    
+    var QuestionList = [String]()
+    
+    init( QuestionList: [String]){
+        
+        
+        self.QuestionList = QuestionList as [String]
+        
+        
+    }
+}

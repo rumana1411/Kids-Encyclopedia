@@ -8,28 +8,82 @@
 
 import UIKit
 
-class ContinentsViewController: UIViewController {
 
+
+class ContinentsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    @IBOutlet weak var continentTableView: UITableView!
+    
+    @IBOutlet weak var contImgView: UIImageView!
+    
+//    var continents = ["Asia","Europe", "Africa","North America","South America", "Australia","Antractica"]
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+       continentTableView.delegate = self
+       continentTableView.dataSource = self
+        
+        
+       
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
+        
+        return contDataArray.count
+        
+    }
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        
+        var cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomCell
+        var img = UIImage(named: contDataArray[indexPath.row].contImgName)
+        cell.cellImgView.image = img
+        cell.cellLbl.text = contDataArray[indexPath.row].contName
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+       print("FarhanLiza")
+       performSegue(withIdentifier: "showContDetails", sender: indexPath.row)
+     // performSegue(withIdentifier: "showTest", sender: indexPath.row)
+        
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func backButton(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "backToHm", sender: nil)
     }
-    */
+    
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "showContDetails"{
+            var nextScene = segue.destination as! ContDetailcollViewController
+            nextScene.contToShow = sender as! Int
+
+        }
+            
+            // Pass the selected object to the new view controller.
+          //  if let indexPath = self.tableView.indexPathForSelectedRow {
+            //    let selectedVehicle = vehicles[indexPath.row]
+              //  nextScene.currentVehicle = selectedVehicle
+            // nextScene.contToShow = sender as! Int
+            
+            
+        }
+    
+    
+    
+    
+  
+    
 }
+
+

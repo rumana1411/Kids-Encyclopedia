@@ -10,6 +10,9 @@ import UIKit
 
 class ContTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var contImgView: UIImageView!
+    @IBOutlet weak var contLbl: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

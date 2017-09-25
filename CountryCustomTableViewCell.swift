@@ -9,7 +9,10 @@
 import UIKit
 
 class CountryCustomTableViewCell: UITableViewCell {
-
+   
+    @IBOutlet weak var rowLbl: UILabel!
+    
+    @IBOutlet weak var rowtitleLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -7,29 +7,79 @@
 //
 
 import UIKit
+import MapKit
 
 class MapViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBOutlet weak var countryMapView: MKMapView!
+    var lat: Double!
+    var lng: Double!
+    var contIndex: Int!
+    var cntryToShow: Int!
+    
+   
+    
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            
+            showMap(lat: lat, lng: lng)
+         //   showMap(lat: Double(lat)!, lng: Double(lng)!)
+            
+        }
+        
+        func showMap(lat: Double, lng: Double){
+            
+            //        let lattitude: CLLocationDegrees =  27.1750199
+            //        let longitude: CLLocationDegrees = 78.0399665
+            
+            let lattitude: CLLocationDegrees =  CLLocationDegrees(lat)
+            let longitude: CLLocationDegrees = CLLocationDegrees(lng)
+            
+            
+            print(lattitude)
+            print(longitude)
+            
+            let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(lattitude, longitude)
+            
+            
+            
+            let latDelta: CLLocationDegrees = 0.05
+            let longDelta: CLLocationDegrees = 0.05
+            
+            let span: MKCoordinateSpan = MKCoordinateSpanMake(latDelta, longDelta)
+            
+            
+            let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
+            
+            countryMapView.setRegion(region, animated: true)
+            let myAnnotation = MKPointAnnotation()
+            
+            myAnnotation.coordinate = location
+            myAnnotation.title = "Taj Mahal"
+            myAnnotation.subtitle = "Come and Visit me Here"
+            countryMapView.addAnnotation(myAnnotation)
+            
+        }
+    
+    @IBAction func backButton(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "backToCntryView", sender: nil)
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        
+        
+        if segue.identifier == "backToCntryView"{
+            
+            var prevScene = segue.destination as! CountryViewController
+            prevScene.contIndex = self.contIndex
+            prevScene.countryToShow = self.cntryToShow
+            
+        }
     }
-    */
 
 }
